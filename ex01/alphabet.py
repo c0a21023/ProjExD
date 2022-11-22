@@ -1,6 +1,5 @@
 import random
 import datetime
-import string
 
 al_li=random.sample([chr(ord("A")+i) for i in range(26)],10)
 num=random.randint(1,4)
