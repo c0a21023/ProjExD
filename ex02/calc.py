@@ -1,10 +1,11 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
+    
 
 def button_click(event):
     btn=event.widget
     txt=btn["text"]
-    
+    entry.insert(tk.END,txt)
 root=tk.Tk()
 root.title("tk")
 root.geometry("300x500")
@@ -64,5 +65,4 @@ entry=tk.Entry(width=30)
 entry.insert(tk.END,"")
 entry.grid(row=0,column=0,columnspan=3)
 entry.pack
-    
 root.mainloop()
