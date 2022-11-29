@@ -6,10 +6,10 @@ f1=30#デフォルトのボタンとテキストのフォントの大きさ
 r, c = 2, 0
 root=tk.Tk()
 root.title("tk")
-root.geometry("280x430")
+root.geometry("300x500")
 root.configure(bg="black")
 button_li=["÷","×","-","+","="]
-sub_bli=["AC","+/-使えない","%"]
+sub_bli=["AC","+/-未実装","%"]
 def button_click(event):
     btn=event.widget
     txt=btn["text"]
@@ -33,18 +33,18 @@ def button_click(event):
 
 for i in range(9,-1,-1):
     if i>=1:
-        button=tk.Button(root,text=str(i),width=w,height=h,font=f1)
+        button=tk.Button(root,text=str(i),width=w,height=h,font=("",f1))
         button.grid(row=r, column=c)
         button.configure(bg="gray33")
         button.bind("<1>",button_click)
         button.pack
     if i==0:
-        button=tk.Button(root,text=str(i),width=11,height=h,font=f1)
+        button=tk.Button(root,text=str(i),width=11,height=h,font=("",f1))
         button.grid(row=r, column=c,columnspan=2)
         button.configure(bg="gray33")
         button.bind("<1>",button_click)
         button.pack   
-        button=tk.Button(root,text=".",width=w,height=h,font=f1)
+        button=tk.Button(root,text=".",width=w,height=h,font=("",f1))
         button.grid(row=r, column=c+2,)
         button.configure(bg="gray33")
         button.bind("<1>",button_click)     
@@ -54,17 +54,17 @@ for i in range(9,-1,-1):
         c = 0
 
 for num,i in enumerate(button_li,1):
-    button=tk.Button(root,text=i,width=w,height=h,font=f1)
+    button=tk.Button(root,text=i,width=w,height=h,font=("",f1))
     button.configure(bg="gray33")
     button.grid(row=num, column=4)
     button.bind("<1>",button_click)
 for num,i in enumerate(sub_bli):
-    button=tk.Button(root,text=i,width=w,height=h,font=f1)
+    button=tk.Button(root,text=i,width=w,height=h,font=("",f1))
     button.configure(bg="gray33")
     button.grid(row=1, column=num)
-    print(num)
+    # print(num)
     button.bind("<1>",button_click)
-entry=tk.Entry(width=25,font=f1)
+entry=tk.Entry(width=25,font=("",f1))
 # entry=tk.Entry(font=f1)
 # entry.place(width=25,height=20,)
 entry.insert(tk.END,"")
