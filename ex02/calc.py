@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
+#-/+のマイナス、プラスの反転は未実装である
 w=5#デフォルトのボタンの幅
 h=3#デフォルトのボタンの高さ
 f1=30#デフォルトのボタンとテキストのフォントの大きさ
