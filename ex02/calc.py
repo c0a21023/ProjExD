@@ -5,7 +5,13 @@ import tkinter.messagebox as tkm
 def button_click(event):
     btn=event.widget
     txt=btn["text"]
-    entry.insert(tk.END,txt)
+    if txt=="=":
+        num=entry.get()
+        ans=eval(num)
+        entry.delete(0,tk.END)
+        entry.insert(tk.END,ans)
+    else:
+        entry.insert(tk.END,txt)
 root=tk.Tk()
 root.title("tk")
 root.geometry("300x500")
