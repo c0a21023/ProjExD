@@ -8,7 +8,7 @@ def button_click(event):
 root=tk.Tk()
 root.title("tk")
 root.geometry("300x500")
-button0=tk.Button(root,text="0",width=4,height=2,font=30)
+button0=tk.Button(root,text="0",width=4,height=2,font=30,sticky = tk.W+tk.E)
 button0.grid(row=3,column=0,columnspan=1)
 button0.bind("<1>",button_click)
 button0.pack
@@ -48,5 +48,8 @@ button9=tk.Button(root,text="9",width=4,height=2,font=30)
 button9.grid(row=0,column=0,columnspan=1)
 button9.bind("<1>",button_click)
 button9.pack
+entry=tk.Entry(width=30)
+entry.insert(tk.END,"")
+entry.pack()
 
 root.mainloop()
