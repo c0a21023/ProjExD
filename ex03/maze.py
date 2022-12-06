@@ -8,16 +8,31 @@ def key_up(event):
     key=""
 
 def main_proc():
-    global cx,cy
+    global cx,cy,mx,my
     if key=="Up":
-        cy-=20
+        my-=1
     if key=="Down":
-        cy+=20
+        my+=1
     if key=="Left":
-        cx-=20
+        mx-=1
     if key=="Right":
-        cx+=20
+        mx+=1
+    if maze_lst[mx][my]==1:
+        if key=="Up":
+            my+=1
+        if key=="Down":
+            my-=1
+        if key=="Left":
+            mx+=1
+        if key=="Right":
+            mx-=1
+    # if key=="3":
+    #     tori3=tk.PhotoImage(file="fig/3.png")
+    #     canvas.create_image(cx,cy,image=tori3,tag="koukaton3")
+    #     canvas.pack()
+        # print("create")      
     #koukatonの画像変更
+    cx,cy=mx*100+50,my*100+50
     canvas.coords("koukaton",cx,cy)
     root.after(100,main_proc)
 
@@ -29,11 +44,11 @@ if __name__ == "__main__":
     canvas.pack()
     maze_lst=mm.make_maze(15,9)
     mm.show_maze(canvas,maze_lst)
-    print(maze_lst)
+    # print(maze_lst)
     tori=tk.PhotoImage(file="fig/8.png")
-    cx,cy=300,400
-    canvas.create_image(cx,cy,
-                        image=tori,tag="koukaton")
+    mx,my=1,1
+    cx,cy=mx*100+50,my*100+50
+    canvas.create_image(cx,cy,image=tori,tag="koukaton")
     canvas.pack()
     key=""
     root.bind("<KeyPress>",key_down)
