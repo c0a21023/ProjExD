@@ -10,4 +10,5 @@ if __name__ == "__main__":
     canvas.create_image(cx,cy,
                         image=tori,tag="koukaton")
     canvas.pack()
+    key=""
     root.mainloop()
