@@ -2,13 +2,13 @@ import pygame as pg
 import random
 import sys
 
-
 def check_bound(obj_rct,scr_rct):
     #第1引数=こうかとん、bombのrect、第2引数=スクリーンrect
     yoko,tate=+1,+1
     if obj_rct.left<scr_rct.left or scr_rct.right < obj_rct.right: yoko=-1
     if obj_rct.top < scr_rct.top or scr_rct.bottom < obj_rct.bottom: tate=-1
     return yoko,tate
+
 
 def tori_mov(rct,s_rct):#こうかとんの動き方をまとめた関数
         dict=pg.key.get_pressed()#辞書型
@@ -22,6 +22,7 @@ def tori_mov(rct,s_rct):#こうかとんの動き方をまとめた関数
             if dict[pg.K_LEFT]: rct.centerx+=1#左キーを押した場合に元の位置に戻す
             if dict[pg.K_RIGHT]: rct.centerx-=1#右キーを押した場合に元の位置に戻す    
 
+
 def tori_dmov(rct,s_rct,flag):#失敗状態のこうかとんの処理
     dict=pg.key.get_pressed()#辞書型
     x1,y1=0,0
@@ -33,7 +34,6 @@ def tori_dmov(rct,s_rct,flag):#失敗状態のこうかとんの処理
 
     return flag,x1,y1
     
-
 
 def tori_change(tori_rct,tori_sfc,scrn_sfc):#こうかとんの画像変更関数
         dict=pg.key.get_pressed()#辞書型
@@ -116,28 +116,23 @@ def main():
             tori_mov(tori_rct,scrn_rct)#こうかとんの動作関数
         tori_sfc=tori_change(tori_rct,tori_sfc,scrn_sfc)#こうかとんの画像変更関数
 
-        
         scrn_sfc.blit(tori_sfc,tori_rct)
         scrn_sfc.blit(bomb_sfc,bomb_rct)
         scrn_sfc.blit(bomb_sfc1,bomb_rct1)
         
         bomb_rct.move_ip(vx,vy)
         bomb_rct1.move_ip(vx1,vy1)
-
  
         vx,vy=bomb_mov(bomb_rct,scrn_rct,vx,vy)
         vx1,vy1=bomb_mov(bomb_rct1,scrn_rct,vx1,vy1)
         
-
-        if tori_rct.colliderect(bomb_rct) or tori_rct.colliderect(bomb_rct1):
+        if tori_rct.colliderect(bomb_rct) or tori_rct.colliderect(bomb_rct1):#こうかとんが爆弾に触れた場合
             tori_sfc=pg.image.load("fig/8.png")
             tori_sfc=pg.transform.rotozoom(tori_sfc,0,3.0) 
             scrn_sfc.blit(tori_sfc,tori_rct)
             vx,vy=0,0
             vx1,vy1=0,0
             mov_flag=True
-
-
 
         pg.display.update()
         clock.tick(1000)
