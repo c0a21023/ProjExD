@@ -22,13 +22,16 @@ def tori_mov(rct,s_rct):#こうかとんの動き方をまとめた関数
             if dict[pg.K_LEFT]: rct.centerx+=1#左キーを押した場合に元の位置に戻す
             if dict[pg.K_RIGHT]: rct.centerx-=1#右キーを押した場合に元の位置に戻す    
 
-def tori_dmov(rct,s_rct,flag):
+def tori_dmov(rct,s_rct,flag):#失敗状態のこうかとんの処理
     dict=pg.key.get_pressed()#辞書型
+    x1,y1=0,0
     rct.center=s_rct.centerx,s_rct.centery
     font_ren()
-    if dict[pg.K_s]:
+    if dict[pg.K_4]: 
         flag=False
-    return flag
+        x1,y1=+1,+1
+
+    return flag,x1,y1
     
 
 
@@ -68,8 +71,6 @@ def font_ren():#フォントを生成する関数
    return text1,text2
 
 
-
-
 def main():
     #ゲームの初期設定
     clock=pg.time.Clock()
@@ -105,8 +106,10 @@ def main():
                 return
 
         if mov_flag:#こうかとんの状態がTrue
-            mov_flag=tori_dmov(tori_rct,scrn_rct,mov_flag)#こうかとんを動けなくさせる関数
+            mov_flag,x1,y1=tori_dmov(tori_rct,scrn_rct,mov_flag)#こうかとんを動けなくさせる関数
             text1,text2=font_ren()
+            vx,vy=x1,y1
+            vx1,vy1=x1,y1
             scrn_sfc.blit(text1,(550,200))
             scrn_sfc.blit(text2,(300,250))
         else:
@@ -135,9 +138,6 @@ def main():
             mov_flag=True
 
 
-
-
-            
 
         pg.display.update()
         clock.tick(1000)
