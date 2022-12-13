@@ -6,7 +6,7 @@ def main():
 
 
     pg.display.set_caption("逃げろこうかとん")#ウィンドウの名前
-    scrn_sfc=pg.display.set_mode((1600,800))#ウィンドウの大きさ設定
+    scrn_sfc=pg.display.set_mode((1500,750))#ウィンドウの大きさ設定
     pgbg_sfc=pg.image.load("fig/pg_bg.jpg")#背景用画像のロード
     pgbg_rct=pgbg_sfc.get_rect()
 
@@ -20,9 +20,23 @@ def main():
 
     while True:
         scrn_sfc.blit(pgbg_sfc,pgbg_rct)
+
         for event in pg.event.get():
             if event.type==pg.QUIT:
                 return
+
+        key_dict=pg.key.get_pressed()#辞書型
+        if key_dict[pg.K_UP]:
+            tori_rct.centery-=1
+        if key_dict[pg.K_DOWN]:
+            tori_rct.centery+=1   
+        if key_dict[pg.K_LEFT]:
+            tori_rct.centerx-=1
+        if key_dict[pg.K_RIGHT]:
+            tori_rct.centerx+=1 
+        scrn_sfc.blit(tori_sfc,tori_rct)
+
+
         pg.display.update()
         clock.tick(1000)
 
