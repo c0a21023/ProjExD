@@ -5,8 +5,6 @@ import time
 import math
 
 
-
-
 class Screen:
     def __init__(self,title,wh,imb_path):#self,ウィンドウの名前、ウィンドウの大きさ、背景画像のパス
         pg.display.set_caption(title)#ウィンドウの名前
@@ -51,7 +49,6 @@ class Bird:
             if check_bound(self.rct, scr.rct) != (+1, +1):
                 self.rct.centerx -= delta[0]
                 self.rct.centery -= delta[1]
-        
         for key, delta in Bird.key_orig.items():
             if key_dct[key]:
                 self.sfc=pg.image.load(delta)
@@ -118,8 +115,6 @@ def after_d(scr,bird):#フォントを生成する関数
     return flag
 
 
-
-
 def main():
     time_sta=time.time()
     clock =pg.time.Clock()
@@ -130,7 +125,7 @@ def main():
  
     TUTbird=Bird("fig/6.png",2.0,(900,400))
     TUTbird.update(scr)
-    
+
     kbm_lst=[]
     bom_nm=1
     bom_ds=4
@@ -142,12 +137,14 @@ def main():
         kbm.update(scr)
 
     time1=time.time()-time_sta
+
     while True:
         scr.blit()
         time1=time.time()-time_sta
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
+                
         if mov_flag:
             TUTbird.update(scr)
             if math.floor(time1)%bom_ds==0 and count_up!=math.floor(time1):
@@ -170,8 +167,6 @@ def main():
                 kbm_lst[i].update(scr)  
             mov_flag=after_d(scr,TUTbird)
             if mov_flag==True: return
-
-        
 
         pg.display.update()
         clock.tick(1000)
