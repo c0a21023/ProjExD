@@ -13,18 +13,18 @@ class Screen:
         self.bgi_sfc=pg.image.load(imb_path)#背景用画像のロード
         self.bgi_rct=self.bgi_sfc.get_rect()
 
-    def blit(self):
+    def blit(self):#Screenクラスのblit関数
         self.sfc.blit(self.bgi_sfc, self.bgi_rct) 
 
 
 class Bird:
-    key_delta = {
+    key_delta = {#指定のkeyを押したときに返す値のリスト
         pg.K_UP:    [0, -1],
         pg.K_DOWN:  [0, +1],
         pg.K_LEFT:  [-1, 0],
         pg.K_RIGHT: [+1, 0],
     }
-    key_orig={
+    key_orig={#指定のkeyを押したときに返す値のリスト
         pg.K_1: "fig/1.png",
         pg.K_2: "fig/2.png",
         pg.K_3: "fig/3.png",
@@ -37,51 +37,50 @@ class Bird:
             self.rct = self.sfc.get_rect()
             self.rct.center = xy#900, 400
     
-    def blit(self,scr:Screen):
+    def blit(self,scr:Screen):#Birdクラスのblit関数
         scr.sfc.blit(self.sfc,self.rct)
     
-    def update(self,scr:Screen):
+    def update(self,scr:Screen):#こうかとんの移動と、画像変更を扱う関数
         key_dct = pg.key.get_pressed()
-        for key, delta in Bird.key_delta.items():
+        for key, delta in Bird.key_delta.items():#移動キーが押されたとき
             if key_dct[key]:
                 self.rct.centerx += delta[0]
                 self.rct.centery += delta[1]
-            if check_bound(self.rct, scr.rct) != (+1, +1):
+            if check_bound(self.rct, scr.rct) != (+1, +1):#壁にぶつかった場合
                 self.rct.centerx -= delta[0]
                 self.rct.centery -= delta[1]
-        for key, delta in Bird.key_orig.items():
+        for key, delta in Bird.key_orig.items():#指定された数字キーが押されたとき
             if key_dct[key]:
-                self.sfc=pg.image.load(delta)
-                self.sfc=pg.transform.rotozoom(self.sfc,0,2.0) 
+                self.sfc=pg.image.load(delta)#画像をロードする
+                self.sfc=pg.transform.rotozoom(self.sfc,0,2.0)#ロードされた画像の反映
         self.blit(scr)
 
 
 class Bomb:
     def __init__(self,color,rad,vxy,scr:Screen):
         self.sfc = pg.Surface((2*rad, 2*rad)) # 正方形の空のSurface
-        self.sfc.set_colorkey((0, 0, 0))
-        pg.draw.circle(self.sfc,color,(rad,rad),rad)
+        self.sfc.set_colorkey((0, 0, 0))#黒色の透過
+        pg.draw.circle(self.sfc,color,(rad,rad),rad)#円の各値の設定
         self.rct = self.sfc.get_rect()
         self.rct.centerx = random.randint(0, scr.rct.width)
         self.rct.centery = random.randint(0, scr.rct.height)
-        self.vx,self.vy=vxy
+        self.vx,self.vy=vxy#
     
-    def dead(self):
-        self.vx,self.vy=0,0
+    def dead(self):#ゲームオーバー時に呼び出される関数
+        self.vx,self.vy=0,0#移動変数を0にする
 
     def blit(self,scr:Screen):
         scr.sfc.blit(self.sfc,self.rct)
 
     def update(self,scr):
         self.rct.move_ip(self.vx,self.vy)
-        self.sfc.blit(self.sfc, self.rct) 
         yoko, tate = check_bound(self.rct,scr.rct)
         self.vx *= yoko
         self.vy *= tate
         self.blit(scr)
 
         
-def check_bound(obj_rct, scr_rct):
+def check_bound(obj_rct, scr_rct):#壁にぶつかったことを判定する関数
     """
     第1引数：こうかとんrectまたは爆弾rect
     第2引数：スクリーンrect
