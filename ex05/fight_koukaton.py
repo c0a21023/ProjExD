@@ -125,13 +125,12 @@ def main():
     clock =pg.time.Clock()
     count_up=0
     mov_flag=True
-    #練習１
+
     scr=Screen("負けるな！こうかとん",(1500,750),"fig/pg_bg.jpg")
-    # 練習３
+ 
     TUTbird=Bird("fig/6.png",2.0,(900,400))
     TUTbird.update(scr)
-
-    # 練習５
+    
     kbm_lst=[]
     bom_nm=1
     bom_ds=4
@@ -141,8 +140,7 @@ def main():
         kbm=Bomb((255,0,0),10,vxy,scr)
         kbm_lst.append(kbm)
         kbm.update(scr)
-    # print(kbm_lst)
-    # 練習２
+
     time1=time.time()-time_sta
     while True:
         scr.blit()
